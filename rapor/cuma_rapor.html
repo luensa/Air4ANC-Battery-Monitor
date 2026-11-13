@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<style>
+  @font-face {
+    font-family: 'NotoSans';
+    src: url('file:///usr/share/fonts/truetype/noto/NotoSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: 'NotoSans';
+    src: url('file:///usr/share/fonts/truetype/noto/NotoSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'NotoSans', 'DejaVu Sans', sans-serif;
+    background: #e8eef5;
+    color: #1a2b4b;
+    width: 1100px;
+  }
+  .page {
+    width: 1100px;
+    background: #e8eef5;
+    padding-bottom: 28px;
+  }
+  .header {
+    background: #1a2b4b;
+    padding: 28px 36px 32px;
+    position: relative;
+  }
+  .depo {
+    display: inline-block;
+    background: #d61f26;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .header h1 {
+    color: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1.25;
+  }
+  .header h1 .sub {
+    display: block;
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 4px;
+    opacity: 0.95;
+  }
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 22px;
+  }
+  .kpi {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .kpi .val {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a2b4b;
+    line-height: 1.1;
+  }
+  .kpi .lbl {
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #5a6a7a;
+    letter-spacing: 0.3px;
+  }
+  .section {
+    padding: 28px 36px 0;
+  }
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #1a2b4b;
+    margin-bottom: 16px;
+  }
+  .top5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+  }
+  .person-card {
+    border-radius: 14px;
+    padding: 18px 12px 20px;
+    text-align: center;
+    min-height: 168px;
+  }
+  .rank-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #fff;
+    color: #1a2b4b;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .pname {
+    font-weight: 700;
+    font-size: 14px;
+    color: #1a1a1a;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.25;
+  }
+  .pkoli {
+    margin-top: 10px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #d61f26;
+  }
+  .psaat {
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #6a7585;
+    letter-spacing: 0.2px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+  }
+  thead th {
+    background: #1a2b4b;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  thead th.c-sira, td.c-sira { text-align: center; width: 70px; }
+  thead th.c-koli, td.c-koli { text-align: right; width: 140px; }
+  thead th.c-ort, td.c-ort { text-align: right; width: 140px; }
+  tbody td {
+    padding: 11px 14px;
+    font-size: 14px;
+    border-bottom: 1px solid #e6ebf2;
+  }
+  tr.even { background: #f3f6fa; }
+  tr.odd { background: #fff; }
+  td.c-ad { font-weight: 700; color: #1a2b4b; }
+  td.c-koli { font-weight: 700; color: #d61f26; }
+  td.c-ort { font-weight: 600; color: #3a4a5a; }
+  td.c-sira { font-weight: 700; color: #1a2b4b; }
+  .note {
+    margin: 22px 36px 0;
+    background: #d7e8f7;
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #1a2b4b;
+  }
+  .note strong { font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="depo">DEPO 36103</div>
+      <h1>ŞANLIURFA DAĞITIM MERKEZİ<span class="sub">CUMA GÜNÜ KOLİ PERFORMANS RAPORU</span></h1>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="val">26</div>
+          <div class="lbl">PERSONEL</div>
+        </div>
+        <div class="kpi">
+          <div class="val">31.111</div>
+          <div class="lbl">TOPLAM KOLİ</div>
+        </div>
+        <div class="kpi">
+          <div class="val">151,4</div>
+          <div class="lbl">SAATTE ORT. KOLİ</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">EN YÜKSEK KOLİ TOPLAYAN İLK 5 PERSONEL</div>
+      <div class="top5">
+        
+            <div class="person-card" style="background:#f7e8a0">
+              <div class="rank-circle">1</div>
+              <div class="pname">Ali İhsan Atmaca</div>
+              <div class="pkoli">3.341 KOLİ</div>
+              <div class="psaat">SAATTE 550,4</div>
+            </div>
+            
+            <div class="person-card" style="background:#dfe3e8">
+              <div class="rank-circle">2</div>
+              <div class="pname">Mustafa Kubat</div>
+              <div class="pkoli">1.965 KOLİ</div>
+              <div class="psaat">SAATTE 233,7</div>
+            </div>
+            
+            <div class="person-card" style="background:#f5c9a0">
+              <div class="rank-circle">3</div>
+              <div class="pname">Müslüm İrfan</div>
+              <div class="pkoli">1.759 KOLİ</div>
+              <div class="psaat">SAATTE 213,2</div>
+            </div>
+            
+            <div class="person-card" style="background:#c8dff0">
+              <div class="rank-circle">4</div>
+              <div class="pname">Gökhan Acat</div>
+              <div class="pkoli">1.744 KOLİ</div>
+              <div class="psaat">SAATTE 218,5</div>
+            </div>
+            
+            <div class="person-card" style="background:#d8c8e8">
+              <div class="rank-circle">5</div>
+              <div class="pname">Sıtkı Toprak</div>
+              <div class="pkoli">1.559 KOLİ</div>
+              <div class="psaat">SAATTE 219,6</div>
+            </div>
+            
+      </div>
+    </div>
+
+    <div class="section" style="padding-top:26px;">
+      <div class="section-title">GENEL TOPLAM LİSTESİ</div>
+      <table>
+        <thead>
+          <tr>
+            <th class="c-sira">SIRA</th>
+            <th class="c-ad">PERSONEL ADI</th>
+            <th class="c-koli">CUMA KOLİ</th>
+            <th class="c-ort">SAATTE ORT.</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            <tr class="even">
+              <td class="c-sira">6</td>
+              <td class="c-ad">Mahmut Pisak</td>
+              <td class="c-koli">1.486</td>
+              <td class="c-ort">168,3</td>
+            </tr>
+            
+            <tr class="odd">
+              <td class="c-sira">7</td>
+              <td class="c-ad">Vedat Polat</td>
+              <td class="c-koli">1.483</td>
+              <td class="c-ort">182,2</td>
+            </tr>
+            
+            <tr class="even">
+              <td class="c-sira">8</td>
+              <td class="c-ad">Yüksel Yaşbaş</td>
+              <td class="c-koli">1.465</td>
+              <td class="c-ort">184,7</td>
+            </tr>
+            
+            <tr class="odd">
+              <td class="c-sira">9</td>
+              <td class="c-ad">Mehmet Değerli</td>
+              <td class="c-koli">1.434</td>
+              <td class="c-ort">249,4</td>
+            </tr>
+            
+            <tr class="even">
+              <td class="c-sira">10</td>
+              <td class="c-ad">Ali Küçükbayrak</td>
+              <td class="c-koli">1.399</td>
+              <td class="c-ort">162,5</td>
+            </tr>
+            
+            <tr class="odd">
+              <td class="c-sira">11</td>
+              <td class="c-ad">Erkan Bozkurt</td>
+              <td class="c-koli">1.396</td>
+              <td class="c-ort">185,4</td>
+            </tr>
+            
+            <tr class="even">
+              <td class="c-sira">12</td>
+              <td class="c-ad">Yusuf Tören</td>
+              <td class="c-koli">1.368</td>
+              <td class="c-ort">161,5</td>
+            </tr>
+            
+            <tr class="odd">
+              <td class="c-sira">13</td>
+              <td class="c-ad">Hasan Akyüz</td>
+              <td class="c-koli">1.235</td>
+              <td class="c-ort">39,4</td>
+            </tr>
+            
+            <tr class="even">
+              <td class="c-sira">14</td>
+              <td class="c-ad">Mehmet Ali Akdağ</td>
+              <td class="c-koli">1.221</td>
+              <td class="c-ort">177,0</td>
+            </tr>
+            
+            <tr class="odd">
+              <td class="c-sira">15</td>
+              <td class="c-ad">Ömer Kat</td>
+              <td class="c-koli">1.139</td>
+              <td class="c-ort">172,8</td>
+            </tr>
+            
+            <tr class="even">
+              <td class="c-sira">16</td>
+              <td class="c-ad">Ramazan Demir</td>
+              <td class="c-koli">1.134</td>
+              <td class="c-ort">131,7</td>
+            </tr>
+            
+            <tr class="odd">
+              <td class="c-sira">17</td>
+              <td class="c-ad">Muhammed Çatlakcan</td>
+              <td class="c-koli">1.010</td>
+              <td class="c-ort">134,0</td>
+            </tr>
+            
+            <tr class="even">
+              <td class="c-sira">18</td>
+              <td class="c-ad">Mehmet Çiftçi</td>
+              <td class="c-koli">929</td>
+              <td class="c-ort">108,5</td>
+            </tr>
+            
+            <tr class="odd">
+              <td class="c-sira">19</td>
+              <td class="c-ad">Hüseyin Demir</td>
+              <td class="c-koli">838</td>
+              <td class="c-ort">137,2</td>
+            </tr>
+            
+            <tr class="even">
+              <td class="c-sira">20</td>
+              <td class="c-ad">Ömer Karahan</td>
+              <td class="c-koli">715</td>
+              <td class="c-ort">90,6</td>
+            </tr>
+            
+            <tr class="odd">
+              <td class="c-sira">21</td>
+              <td class="c-ad">Mehmet Oğuz Tokdemir</td>
+              <td class="c-koli">683</td>
+              <td class="c-ort">104,1</td>
+            </tr>
+            
+            <tr class="even">
+              <td class="c-sira">22</td>
+              <td class="c-ad">Ömer Faruk Karataş</td>
+              <td class="c-koli">599</td>
+              <td class="c-ort">80,8</td>
+            </tr>
+            
+            <tr class="odd">
+              <td class="c-sira">23</td>
+              <td class="c-ad">Cemal Ağlamış</td>
+              <td class="c-koli">514</td>
+              <td class="c-ort">76,4</td>
+            </tr>
+            
+            <tr class="even">
+              <td class="c-sira">24</td>
+              <td class="c-ad">Muhammet Ali Ateşkan</td>
+              <td class="c-koli">377</td>
+              <td class="c-ort">159,7</td>
+            </tr>
+            
+            <tr class="odd">
+              <td class="c-sira">25</td>
+              <td class="c-ad">Murat Akbulut</td>
+              <td class="c-koli">282</td>
+              <td class="c-ort">55,6</td>
+            </tr>
+            
+            <tr class="even">
+              <td class="c-sira">26</td>
+              <td class="c-ad">Berfin Avli</td>
+              <td class="c-koli">36</td>
+              <td class="c-ort">52,2</td>
+            </tr>
+            
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Hesaplama notu:</strong>
+      Cuma günü 26 personel toplam 31.111 koli topladı.
+      Genel ortalama saatte 151,4 koli
+      (toplam koli ÷ toplam toplama süresi 205,46 saat).
+      Personel saatte ortalama = personelin toplam kolisi ÷ kendi toplama süresi.
+      Karşılaştırma verisi bu raporda yer almamaktadır.
+    </div>
+  </div>
+</body>
+</html>
